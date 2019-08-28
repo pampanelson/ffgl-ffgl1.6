@@ -44,38 +44,40 @@ uniform vec3 brightness;
 uniform float width;
 uniform float height;
 uniform float ticks;
-uniform float inputArray[]; // 256 size()
+uniform float inputArray[256]; // 256 size()
+uniform float probeFFT;
 void main()
 {
     // name convert ---------------
     vec4 fragColor;
     float iTime = ticks/1000.0;
     vec2 iResolution = vec2(width,height);
-    vec2 fragCoord = vec2(gl_FragCoord.x,iResolution.y - gl_FragCoord.y) ;
-    
+    vec2 fragCoord = vec2(gl_FragCoord.x,iResolution.y - gl_FragCoord.y);
+
     vec2 uv = fragCoord.xy/iResolution.xy;
-    
+
     vec3 col;
     
     float num = 256.0;
-    
+
     vec2 uv1 = uv;
     uv1.x *= num;
     float f = fract(uv1.x);
     int index1 = int(floor(uv1.x));
-    
     if(uv.y < inputArray[index1]){
-        col += f;
-        
+        col = vec3(f);
+
     }
-    
-    
+
+//        col = vec3(probeFFT,0.0,0.0);
+//    col += vec3(inputArray[index1],0.0,0.0);
     // ---------------
     fragColor = vec4(col,1.0);
     
     
     // finish ---------------
     gl_FragColor = fragColor;
+
 }
 );
 
@@ -135,7 +137,7 @@ FFResult AddSubtract::InitGL(const FFGLViewportStruct *vp)
     m_WidthLocation = m_shader.FindUniform("width");
     m_HeightLocation = m_shader.FindUniform("height");
     
-
+    probeFFTLoc = m_shader.FindUniform("probeFFT");
 	//the 0 means that the 'inputTexture' in
 	//the shader will use the texture bound to GL texture unit 0
 	glUniform1i(m_inputTextureLocation, 0);
@@ -175,8 +177,19 @@ FFResult AddSubtract::ProcessOpenGL(ProcessOpenGLStruct *pGL)
     std::vector<float> oscDataInFloatVec = MyConvertStingToFloatVector(rawOscTextData);
     
     // make use array size is right with default value 0
-    oscDataInFloatVec.resize(kArraySize);
+//    oscDataInFloatVec.resize(kArraySize);
     
+    
+    GLfloat data[256];
+    for (int i = 0; i < 256; i++) {
+//        data[i] = 0.003 * float(i);
+        data[i] = oscDataInFloatVec[i];
+    }
+    
+    
+    
+    GLint viewport[4];
+    glGetIntegerv( GL_VIEWPORT, viewport );
     
     
 	//activate our shader
@@ -198,17 +211,14 @@ FFResult AddSubtract::ProcessOpenGL(ProcessOpenGLStruct *pGL)
     // assign ticks in millisecond
     glUniform1f(m_TicksLocation,ticks);
     
-    GLint viewport[4];
-    glGetIntegerv( GL_VIEWPORT, viewport );
-    
+
     // assign width and height
     glUniform1f(m_WidthLocation, (float)viewport[2]);
     glUniform1f(m_HeightLocation, (float)viewport[3]);
     
-    
-    
-    glUniform1fv(inputArrayLoc,oscDataInFloatVec.size(), &oscDataInFloatVec[0]);
-    
+    glUniform1fv(inputArrayLoc, kArraySize, data);
+
+    glUniform1f(probeFFTLoc, data[200]);
 	//activate texture unit 1 and bind the input texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Texture.Handle);

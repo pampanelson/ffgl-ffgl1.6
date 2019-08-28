@@ -30,18 +30,24 @@ std::vector<std::string> MySplitS1(std::string input){
 
 
 std::vector<float> MyConvertStingToFloatVector(std::string input){
-    std::vector<float> result;
+
+    std::vector<float> vect;
     
-    if(input.size()>0){
-        std::istringstream iss(input);
-        for(std::string s; iss >> s; ){
-            
-            float f = std::stof(s);
-            result.push_back(f);
-        }
+    std::stringstream ss(input);
+    
+    float i;
+    
+    while (ss >> i)
+    {
+        vect.push_back(i);
+        
+        if (ss.peek() == ',')
+            ss.ignore();
     }
     
-    return result;
+    
+    
+    return vect;
 }
 
 #endif /* MyUtils_h */

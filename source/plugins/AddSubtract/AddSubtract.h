@@ -53,6 +53,8 @@ protected:
     GLint m_HeightLocation;
     GLint inputArrayLoc;
     
+    GLint probeFFTLoc;
+    
     double ticks;
     
     
