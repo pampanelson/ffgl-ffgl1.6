@@ -1,12 +1,13 @@
 #include "FFGL.h"
 #include "FFGLLib.h"
-
+#include <math.h>
 #include "AddSubtract.h"
 #include "../../lib/ffgl/utilities/utilities.h"
 
 #define FFPARAM_BrightnessR  (0)
 #define FFPARAM_BrightnessG	 (1)
-#define FFPARAM_BrightnessB	 (2)
+#define FFPARAM_BrightnessB     (2)
+#define FFPARAM_text_data     (3)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Plugin information
@@ -14,7 +15,7 @@
 
 static CFFGLPluginInfo PluginInfo ( 
 	AddSubtract::CreateInstance,		// Create method
-	"RE01",								// Plugin unique ID
+	"RE11",								// Plugin unique ID
 	"AddSub Example",					// Plugin name
 	1,						   			// API major version number 													
 	500,								// API minor version number
@@ -38,13 +39,18 @@ void main()
 static const std::string fragmentShaderCode = STRINGIFY(
 uniform sampler2D inputTexture;
 uniform vec3 brightness;
+uniform float ticks;
 void main()
 {
-	vec4 color = texture2D(inputTexture,gl_TexCoord[0].st);
-	if (color.a > 0.0) //unpremultiply
-		color.rgb /= color.a;
-	color.rgb = color.rgb + brightness;
-	color.rgb *= color.a; //premultiply
+//    vec4 color = texture2D(inputTexture,gl_TexCoord[0].st);
+//    if (color.a > 0.0) //unpremultiply
+//        color.rgb /= color.a;
+//    color.rgb = color.rgb + brightness;
+//    color.rgb *= color.a; //premultiply
+//    vec4 color = vec4(ticks,0.0,0.0,1.0);
+    vec4 color;
+    color.a = 1.0;
+    color.r = ticks;
 	gl_FragColor  =  color;
 }
 );
@@ -68,6 +74,10 @@ AddSubtract::AddSubtract()
 	
 	SetParamInfo(FFPARAM_BrightnessB, "B", FF_TYPE_BLUE, 0.5f);
 	m_BrightnessB = 0.5f;
+    
+    textData = "hello";
+    SetParamInfo(FFPARAM_text_data, "text data:", FF_TYPE_TEXT, textData.c_str());
+    
 
 }
 
@@ -82,6 +92,7 @@ FFResult AddSubtract::InitGL(const FFGLViewportStruct *vp)
 	m_initResources = 0;
 
 
+    ticks = 0.0f;
 	//initialize gl shader
 	m_shader.Compile(vertexShaderCode,fragmentShaderCode);
 
@@ -94,6 +105,7 @@ FFResult AddSubtract::InitGL(const FFGLViewportStruct *vp)
 	m_inputTextureLocation = m_shader.FindUniform("inputTexture");
 	m_BrightnessLocation = m_shader.FindUniform("brightness");
 
+    ticksLoc = m_shader.FindUniform("ticks");
 	//the 0 means that the 'inputTexture' in
 	//the shader will use the texture bound to GL texture unit 0
 	glUniform1i(m_inputTextureLocation, 0);
@@ -125,6 +137,8 @@ FFResult AddSubtract::ProcessOpenGL(ProcessOpenGLStruct *pGL)
 	if (pGL->inputTextures[0]==NULL)
 		return FF_FAIL;
 
+    
+    ticks = textData.size()/10.0f;
 	//activate our shader
 	m_shader.BindShader();
 
@@ -141,7 +155,7 @@ FFResult AddSubtract::ProcessOpenGL(ProcessOpenGLStruct *pGL)
 				-1.0f + (m_BrightnessB * 2.0f)
 				);
 	
-
+    glUniform1f(ticksLoc, ticks);
 	//activate texture unit 1 and bind the input texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Texture.Handle);
@@ -194,6 +208,7 @@ float AddSubtract::GetFloatParameter(unsigned int dwIndex)
 	case FFPARAM_BrightnessB:
 		retValue = m_BrightnessB;
 		return retValue;
+
 	default:
 		return retValue;
 	}
@@ -217,4 +232,34 @@ FFResult AddSubtract::SetFloatParameter(unsigned int dwIndex, float value)
 	}
 
 	return FF_SUCCESS;
+}
+
+char* AddSubtract::GetTextParameter(unsigned int dwIndex)
+{
+
+    char* retValue;
+    switch (dwIndex) {
+        case FFPARAM_text_data:
+            retValue = const_cast<char*>(textData.c_str());
+            break;
+
+        default:
+            return (char *)FF_FAIL;
+    }
+    return retValue;
+}
+
+FFResult AddSubtract::SetTextParameter(unsigned int dwIndex, const char *value){
+    switch (dwIndex)
+    {
+
+        case FFPARAM_text_data:
+            textData.clear();
+            textData = value;
+            break;
+        default:
+            return FF_FAIL;
+    }
+
+    return FF_SUCCESS;
 }

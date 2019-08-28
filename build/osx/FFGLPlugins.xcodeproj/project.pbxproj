@@ -25,6 +25,7 @@
 
 /* Begin PBXBuildFile section */
 		602BD75120668B5900D035F9 /* utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A3D1B9054A9007E6883 /* utilities.cpp */; };
+		80E15FCF2316266B007F74EB /* utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A3D1B9054A9007E6883 /* utilities.cpp */; };
 		A9952D7722B2A63100F4774D /* FFGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A391B9054A9007E6883 /* FFGLShader.cpp */; };
 		A9F92E9D201A1C1500527E48 /* FFGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A2A1B9054A9007E6883 /* FFGL.cpp */; };
 		A9F92E9E201A1C1500527E48 /* FFGLPluginInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A311B9054A9007E6883 /* FFGLPluginInfo.cpp */; };
@@ -498,6 +499,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80E15FCF2316266B007F74EB /* utilities.cpp in Sources */,
 				D6DB1A4D1B9054FE007E6883 /* FFGL.cpp in Sources */,
 				D6DB1A541B9054FE007E6883 /* FFGLPluginInfo.cpp in Sources */,
 				D6DB1A561B9054FE007E6883 /* FFGLPluginInfoData.cpp in Sources */,

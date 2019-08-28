@@ -13,7 +13,9 @@ public:
 	///////////////////////////////////////////////////
 	// FreeFrame plugin methods
 	///////////////////////////////////////////////////
-	
+    FFResult SetTextParameter(unsigned int dwIndex, const char *value) override;
+    char* GetTextParameter(unsigned int index) override;
+
 	FFResult SetFloatParameter(unsigned int dwIndex, float value) override;		
 	float GetFloatParameter(unsigned int index) override;					
 	FFResult ProcessOpenGL(ProcessOpenGLStruct* pGL) override;
@@ -44,4 +46,9 @@ protected:
 	GLint m_inputTextureLocation;
 	GLint m_BrightnessLocation;
 
+    double ticks;
+    
+    GLint ticksLoc;
+    
+    std::string textData;
 };
