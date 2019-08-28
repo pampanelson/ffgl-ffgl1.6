@@ -42,13 +42,21 @@ protected:
 	float m_BrightnessB;
 	int m_initResources;
 
+    int kArraySize = 256;
     FFGLShader m_shader;
 	GLint m_inputTextureLocation;
 	GLint m_BrightnessLocation;
 
+    GLint m_TicksLocation;
+    
+    GLint m_WidthLocation;
+    GLint m_HeightLocation;
+    GLint inputArrayLoc;
+    
     double ticks;
     
-    GLint ticksLoc;
     
-    std::string textData;
+    std::string rawOscTextData;
+    
+    
 };
