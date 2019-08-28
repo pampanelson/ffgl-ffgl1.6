@@ -76,7 +76,7 @@ AddSubtract::AddSubtract()
 	m_BrightnessB = 0.5f;
     
     textData = "hello";
-    SetParamInfo(FFPARAM_text_data, "text data:", FF_TYPE_TEXT, textData.c_str());
+    SetParamInfo(FFPARAM_text_data, "text data", FF_TYPE_TEXT, textData.c_str());
     
 
 }
@@ -138,7 +138,10 @@ FFResult AddSubtract::ProcessOpenGL(ProcessOpenGLStruct *pGL)
 		return FF_FAIL;
 
     
-    ticks = textData.size()/10.0f;
+//    ticks = textData.size()/10.0f;
+    
+    
+    ticks = std::stod(textData.c_str());
 	//activate our shader
 	m_shader.BindShader();
 
@@ -254,7 +257,7 @@ FFResult AddSubtract::SetTextParameter(unsigned int dwIndex, const char *value){
     {
 
         case FFPARAM_text_data:
-            textData.clear();
+//            textData.clear();
             textData = value;
             break;
         default:
