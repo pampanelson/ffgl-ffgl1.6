@@ -25,6 +25,7 @@
 
 /* Begin PBXBuildFile section */
 		602BD75120668B5900D035F9 /* utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A3D1B9054A9007E6883 /* utilities.cpp */; };
+		80E15FCE2315FA46007F74EB /* utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A3D1B9054A9007E6883 /* utilities.cpp */; };
 		A9952D7722B2A63100F4774D /* FFGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A391B9054A9007E6883 /* FFGLShader.cpp */; };
 		A9F92E9D201A1C1500527E48 /* FFGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A2A1B9054A9007E6883 /* FFGL.cpp */; };
 		A9F92E9E201A1C1500527E48 /* FFGLPluginInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DB1A311B9054A9007E6883 /* FFGLPluginInfo.cpp */; };
@@ -96,7 +97,7 @@
 		2FD1224618853D640009EBA8 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		2FD1224818853D700009EBA8 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		2FD1225318853FFB0009EBA8 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		2FD1226B188540470009EBA8 /* AddSubtract.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AddSubtract.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FD1226B188540470009EBA8 /* RecvOscText.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecvOscText.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9F28D5818B37D0C007D7C87 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A9F28D5A18B37D12007D7C87 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		A9F92E8C201A1B8900527E48 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plugin.h; path = ../../../source/plugins/Fireworks/Plugin.h; sourceTree = "<group>"; };
@@ -191,7 +192,7 @@
 		2DA285A10AEE5E480030A4DD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FD1226B188540470009EBA8 /* AddSubtract.bundle */,
+				2FD1226B188540470009EBA8 /* RecvOscText.bundle */,
 				DB4B63F41FF845820069DA80 /* Add.bundle */,
 				DB4B64161FF845920069DA80 /* Gradients.bundle */,
 				A9F92EA9201A1C1500527E48 /* Fireworks.bundle */,
@@ -376,7 +377,7 @@
 			);
 			name = AddSubtract;
 			productName = FFGLBrightness;
-			productReference = 2FD1226B188540470009EBA8 /* AddSubtract.bundle */;
+			productReference = 2FD1226B188540470009EBA8 /* RecvOscText.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		A9F92E9A201A1C1500527E48 /* Fireworks */ = {
@@ -498,6 +499,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80E15FCE2315FA46007F74EB /* utilities.cpp in Sources */,
 				D6DB1A4D1B9054FE007E6883 /* FFGL.cpp in Sources */,
 				D6DB1A541B9054FE007E6883 /* FFGLPluginInfo.cpp in Sources */,
 				D6DB1A561B9054FE007E6883 /* FFGLPluginInfoData.cpp in Sources */,
@@ -621,7 +623,8 @@
 				INFOPLIST_FILE = "FFGLPlugin-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PREBINDING = NO;
-				PRODUCT_NAME = AddSubtract;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lohosoft.ffgl16-osc-test";
+				PRODUCT_NAME = RecvOscText;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = NO;
 			};
@@ -640,7 +643,8 @@
 				INFOPLIST_FILE = "FFGLPlugin-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PREBINDING = NO;
-				PRODUCT_NAME = AddSubtract;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lohosoft.ffgl16-osc-test";
+				PRODUCT_NAME = RecvOscText;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = NO;
 			};
